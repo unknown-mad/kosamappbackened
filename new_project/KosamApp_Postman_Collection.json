@@ -1,0 +1,324 @@
+{
+  "info": {
+    "name": "KosamApp API",
+    "description": "Backend API for KosamApp (React Native). Set baseUrl (e.g. http://localhost:8000) and token (from OTP verify) in collection variables.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8000" },
+    { "key": "token", "value": "" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Send OTP",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/otp/send",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mobile\": \"9876543210\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Verify OTP",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/otp/verify",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mobile\": \"9876543210\",\n  \"otp\": \"123456\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Journey",
+      "item": [
+        {
+          "name": "Get Journey Status",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user/journey"
+          }
+        },
+        {
+          "name": "Mark Step Complete",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/user/journey/step",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"step\": \"banking\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Permissions",
+      "item": [
+        {
+          "name": "Save Permissions",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/permissions",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"camera\": 1,\n  \"sms\": 1,\n  \"storage\": 1,\n  \"location\": 1\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "item": [
+        {
+          "name": "Save Profile",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/profile",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"John Doe\",\n  \"pan\": \"ABCDE1234F\",\n  \"dateOfBirth\": \"15/03/1990\",\n  \"fatherName\": \"Robert Doe\",\n  \"pincode\": \"400001\",\n  \"employmentType\": \"Salaried\",\n  \"loanPurpose\": \"Personal\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bureau Score",
+      "item": [
+        {
+          "name": "Get Bureau Score",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/bureau-score"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Lenders",
+      "item": [
+        {
+          "name": "List Lenders",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/lenders"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Lender Assignment",
+      "item": [
+        {
+          "name": "Create Lender Assignment",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/lender-assignment",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lenderName\": \"HDFC Bank\",\n  \"roiMin\": 10,\n  \"roiMax\": 18,\n  \"processingFeeMin\": 1000,\n  \"processingFeeMax\": 5000,\n  \"loanAmountMin\": 50000,\n  \"loanAmountMax\": 500000,\n  \"tenureMin\": 12,\n  \"tenureMax\": 60\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Current Lender Assignment",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/lender-assignment/current"
+          }
+        },
+        {
+          "name": "List Lender Assignments",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/lender-assignment"
+          }
+        },
+        {
+          "name": "Accept Lender Assignment",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/lender-assignment/1/accept"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Address",
+      "item": [
+        {
+          "name": "Get Address",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/address"
+          }
+        },
+        {
+          "name": "Save Address",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/address",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addressType\": \"rent\",\n  \"addressLine1\": \"123 Main St\",\n  \"addressLine2\": \"Apt 4\",\n  \"city\": \"Mumbai\",\n  \"state\": \"Maharashtra\",\n  \"pincode\": \"400001\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reference",
+      "item": [
+        {
+          "name": "List References",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/reference"
+          }
+        },
+        {
+          "name": "Save Reference",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/reference",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Doe\",\n  \"relation\": \"Spouse\",\n  \"mobile\": \"9876543211\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Employment",
+      "item": [
+        {
+          "name": "Get Employment",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/employment"
+          }
+        },
+        {
+          "name": "Save Employment",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/employment",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employerName\": \"ABC Corp\",\n  \"designation\": \"Engineer\",\n  \"monthlyIncome\": 75000,\n  \"employmentType\": \"Salaried\",\n  \"experienceYears\": 5,\n  \"officeAddress\": \"456 Office Park\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Selfie",
+      "item": [
+        {
+          "name": "Get Selfie",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/selfie"
+          }
+        },
+        {
+          "name": "Save Selfie",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/selfie",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"selfieUrl\": \"https://example.com/selfie.jpg\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Account",
+      "item": [
+        {
+          "name": "Get Account",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/account"
+          }
+        },
+        {
+          "name": "Save Account",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/account",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountType\": \"aa\",\n  \"bankName\": \"HDFC Bank\",\n  \"accountNumberMasked\": \"XXXX1234\",\n  \"upiId\": \"user@paytm\",\n  \"status\": \"linked\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contact Us",
+      "item": [
+        {
+          "name": "Submit Contact",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/contact-us/",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John\",\n  \"email\": \"john@example.com\",\n  \"phone\": \"9876543210\"\n}"
+            }
+          }
+        },
+        {
+          "name": "List Contacts",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/contact-us/"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Debug",
+      "item": [
+        {
+          "name": "Get Journey by Mobile",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/debug/journey/9876543210"
+          }
+        }
+      ]
+    }
+  ]
+}
